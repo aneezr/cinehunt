@@ -1,25 +1,25 @@
-import logo from './logo.svg';
+import React, {useState} from 'react';
+
+import SelectMov from './main/compoents/SelectMov'
+import Login from './main/compoents/Login'
+import Signup from './main/compoents/Signup'
+
 import './App.css';
 
 function App() {
+
+  const [isLoggedIn,setIsLoggedIn] = useState(0);
+  const [userInfo,setUserInfo] = useState(null);
+  const [newSignIn,setNewSignIn] = useState(0);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+        isLoggedIn ? (
+          <SelectMov userInfo={userInfo} />
+        )
+         :newSignIn ? <Signup setNewSignIn={setNewSignIn} />
+
+         :(<Login setIsLoggedIn={setIsLoggedIn} setUserInfo={setUserInfo} setNewSignIn={setNewSignIn} />)
+  )
 }
 
 export default App;
