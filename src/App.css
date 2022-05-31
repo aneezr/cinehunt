@@ -17,6 +17,10 @@
 .logo{
   color:red;
   font-size: 5vh;
+  display: flex;
+  justify-content: center;
+  align-items:center;
+  font-weight: 500;
 }
 
 .main-body{
@@ -36,19 +40,19 @@
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  color: aliceblue;
+  color: rgb(255, 255, 255);
 }
 
 .login-button {
   margin-bottom:15px;
   font-weight:500;
   font-size:25px;
+  padding: 10px 25px;
   background-color: rgba(0, 0, 0, 1);
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 5px;
-  padding: 3px 20px;
   cursor: pointer;
 }
 
@@ -91,4 +95,58 @@
   left: 713.33px;
   top: 486.88px;
   border-radius: 20px;
+}
+
+.form__field {
+  font-family: inherit;
+  width: 100%;
+  border: 0;
+  border-bottom: 2px solid rgb(255, 255, 255);
+  outline: 0;
+  font-size: 1.3rem;
+  color: white;
+  padding: 7px 0;
+  background: transparent;
+  transition: border-color 0.2s;
+}
+
+.form__field::placeholder {
+  color: white;
+}
+
+.form__field:focus {
+  padding-bottom: 6px;  
+  font-weight: 700;
+  border-width: 3px;
+  border-image-slice: 1;
+}
+
+.signup-field{
+  /* background-color: yellow; */
+  display: flex;
+  justify-content: space-around;
+  width: 90%;
+  height:60%;
+  flex-direction: column;
+}
+
+.Input-text {
+  display: block;
+  margin: 0;
+  padding: 0px 20px;
+  color: inherit;
+  width: 100%;
+  font-family: inherit;
+  font-size: 20px;
+  font-weight: inherit;
+  line-height: 1.5;
+  border: none;
+  border-radius: 0.4rem;
+  transition: box-shadow 300ms;
+  color: red;
+}
+
+.Input-text:focus {
+  outline: none;
+  box-shadow: 0.2rem 0.4rem .8rem red;
 }

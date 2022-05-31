@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 
-import SelectMov from './main/compoents/SelectMov'
-import Login from './main/compoents/Login'
-import Signup from './main/compoents/Signup'
+import Login from './main/components/Login'
+import Signup from './main/components/Signup'
+import Main from './main/components/Main'
+
 
 import './App.css';
 
@@ -14,7 +15,7 @@ function App() {
 
   return (
         isLoggedIn ? (
-          <SelectMov userInfo={userInfo} />
+          <Main/>
         )
          :newSignIn ? <Signup setNewSignIn={setNewSignIn} />
 

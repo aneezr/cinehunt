@@ -5,14 +5,14 @@ const CF = ({movies,setUiState}) => {
 
 
     const [cfMovies,setCfMovies] = useState([]);
-    const [refresh,setRefresh] = useState(0);
+    const [refresh,setRefresh] = useState(1);
 
     const getCfMovies = (movie_name) =>{
         const options = {
             method: 'GET',
             headers: {
                 'X-RapidAPI-Host': 'online-movie-database.p.rapidapi.com',
-                'X-RapidAPI-Key': '521a044184msh91b0b141a81f4d8p1457d2jsn1a4c849526c5'
+                'X-RapidAPI-Key': 'f2da4a06e0msha38e04d2a284eddp1b1590jsnf61830e3ba18'
             }
         };
 
@@ -56,7 +56,7 @@ const CF = ({movies,setUiState}) => {
                     
                     }
                     </div>
-                    <div onClick={()=>{getCfMovies(movies[refresh]);setRefresh(refresh+1);}} style={{backgroundColor:"red",borderRadius:"5px",padding:"5px 10px"}}>More</div>
+                    <div onClick={()=>{if(refresh<movies.length){getCfMovies(movies[refresh]);setRefresh(refresh+1);}}} style={{backgroundColor:"red",borderRadius:"5px",padding:"5px 10px"}}>One More !</div>
                 </div>
             </div>
         </div>
