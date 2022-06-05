@@ -2,6 +2,8 @@ import React, {useState,useEffect} from "react";
 
 import MovieFilterIcon from '@mui/icons-material/MovieFilter';
 
+import notFound from "./../../static/download.png" ;
+
 
 const SelectMovies = ({setCfMovies,setUiState,movies,setMovies}) => {
 
@@ -12,27 +14,47 @@ const SelectMovies = ({setCfMovies,setUiState,movies,setMovies}) => {
     },[])
 
     const getMovies = (movie_name) =>{
+        // const options = {
+        //     method: 'GET',
+        //     headers: {
+        //         'accept': 'application/json'
+        //     }
+        // };
+
+        
+        var movieList = movie_name.split(" ")
+        // movie_name = movieList.join("%20")
+        var movie
+        
+        // var endpoint = "https://api.themoviedb.org/3/search/movie?api_key=9f70270ab27c99e0e00744198e6e2788&query="+movie_name+"&page=1&include_adult=false" ;
+        //var endpoint = "http://localhost:8000/movieget/details/"+movie_name;
+        var endpoint = "http://localhost:8000/movieget/details/"+movie_name;
         const options = {
             method: 'GET',
             headers: {
-                'X-RapidAP.I-Host': 'online-movie-database.p.rapidapi.com',
-                'X-RapidAPI-Key': 'f2da4a06e0msha38e04d2a284eddp1b1590jsnf61830e3ba18'
+                'accept': 'application/json' 
             }
         };
-
-        var movieList = movie_name.split(" ")
-        var movie
-        // https://online-movie-database.p.rapidapi.com/auto-complete?q=game%20of%20thr
-        var endpoint = "https://online-movie-database.p.rapidapi.com/auto-complete?q="+movieList.map(item => item+"%20")
-        fetch(endpoint, options)
+        
+        // fetch('https://online-movie-database.p.rapidapi.com/auto-complete?q=game%20of%20thr', options)
+        fetch(endpoint,options)
             .then(response => response.json())
-            .then(data => {movie = data.d[0];
-                            console.log(movies);
-                            setMovies([...movies,{
-                                name:movie.l,
-                                y:movie.y,
-                                poster:movie.i.imageUrl}])
-                            setCurrMovie("")})
+            .then(data => {movie = data;
+                console.log(movie.name);
+                if("i" in movie){
+                    setMovies([...movies,{
+                        name:movie.l,
+                        y:movie.y,
+                        poster:movie.i.imageUrl
+                    }])      
+                }else{
+                    setMovies([...movies,{
+                        name:movie.l,
+                        y:movie.y,
+                        poster:notFound
+                    }])
+                }
+                setCurrMovie("")})
             .catch(err => console.error(err));
     }
 
@@ -91,7 +113,7 @@ const SelectMovies = ({setCfMovies,setUiState,movies,setMovies}) => {
     return(
         <div className="main">
             <div className="main-header">
-                <div className="logo"><MovieFilterIcon style={{color:"red",fontSize:"40px"}} />Cinehunt</div>
+                <div className="logo"><MovieFilterIcon style={{color:"red",fontSize:"6vh",margin:"8px 5px 0 10px"}} />Cinehunt</div>
                 <div></div>
             </div>
             <div className="main-body" style={{justifyContent:"center",alignItems:"center"}} >
@@ -123,7 +145,7 @@ const SelectMovies = ({setCfMovies,setUiState,movies,setMovies}) => {
                             </div>) : null
                         }
                     </div>
-                    <div onClick={()=>{submitMovies()}} style={{marginLeft:"10px",backgroundColor:"black",borderRadius:"5px",padding:"10px 20px"}} >Get recommendations</div>
+                    <div onClick={()=>{submitMovies()}} style={{marginLeft:"10px",backgroundColor:"black",borderRadius:"5px",padding:"10px 20px",color:"rgb(92, 28, 28)",fontWeight:"500"}} >Get recommendations</div>
                 </div>
             </div>
         </div>

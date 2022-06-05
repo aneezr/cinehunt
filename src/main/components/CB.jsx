@@ -29,6 +29,7 @@ const CB = ({movies,setUiState}) => {
                     "count": 1
                 })  
             };
+        console.log(options)
             fetch("http://localhost:8000/movieget/recomendation/",options)
             .then(res => res.json())
             .then(data => {
@@ -39,21 +40,16 @@ const CB = ({movies,setUiState}) => {
 
     },[movies])
     const getCB = (movie_name) =>{
+        var endpoint = "http://localhost:8000/movieget/details/"+movie_name;
         const options = {
             method: 'GET',
             headers: {
-                'X-RapidAPI-Host': 'online-movie-database.p.rapidapi.com',
-                'X-RapidAPI-Key': 'f2da4a06e0msha38e04d2a284eddp1b1590jsnf61830e3ba18'
+                'accept': 'application/json' 
             }
         };
-        console.log(movie_name)
-        var movieList = movie_name.split(" ")
-        var movie
-        // https://online-movie-database.p.rapidapi.com/auto-complete?q=game%20of%20thr
-        var endpoint = "https://online-movie-database.p.rapidapi.com/auto-complete?q="+movieList.map(item => item+"%20")
         fetch(endpoint, options)
             .then(response => response.json())
-            .then(data => {movie = data.d[0];
+            .then(data => {var movie = data;
                     console.log(movie)
                     if("i" in movie){
                         setRenderMov([...renderMov,{

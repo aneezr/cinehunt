@@ -1,5 +1,7 @@
 import React,{useState,useEffect} from "react"
 
+import notFound from "./../../static/download.png" ;
+
 
 const CF = ({movies,setUiState}) => {
 
@@ -8,26 +10,30 @@ const CF = ({movies,setUiState}) => {
     const [refresh,setRefresh] = useState(1);
 
     const getCfMovies = (movie_name) =>{
+        var endpoint = "http://localhost:8000/movieget/details/"+movie_name;
         const options = {
             method: 'GET',
             headers: {
-                'X-RapidAPI-Host': 'online-movie-database.p.rapidapi.com',
-                'X-RapidAPI-Key': 'f2da4a06e0msha38e04d2a284eddp1b1590jsnf61830e3ba18'
+                'accept': 'application/json' 
             }
         };
-
-        var movieList = movie_name.split(" ")
-        var movie
-        // https://online-movie-database.p.rapidapi.com/auto-complete?q=game%20of%20thr
-        var endpoint = "https://online-movie-database.p.rapidapi.com/auto-complete?q="+movieList.map(item => item+"%20")
         fetch(endpoint, options)
             .then(response => response.json())
-            .then(data => {movie = data.d[0];
-                            setCfMovies([...cfMovies,{
-                                name:movie.l,
-                                y:movie.y,
-                                poster:movie.i.imageUrl
-                            }])})
+            .then(data => {var movie = data;
+                            if("i" in movie){
+                                setCfMovies([...cfMovies,{
+                                    name:movie.l,
+                                    y:movie.y,
+                                    poster:movie.i.imageUrl
+                                }])      
+                            }else{
+                                setCfMovies([...cfMovies,{
+                                    name:movie.l,
+                                    y:movie.y,
+                                    poster:notFound
+                                }])
+                            }
+                })
             .catch(err => console.error(err));
     }
     
